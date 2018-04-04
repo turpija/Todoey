@@ -14,6 +14,7 @@ class CategoryViewController: UITableViewController {
 
     var categoryArray = [CategoryEntity]()
     
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
@@ -42,6 +43,17 @@ class CategoryViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("klik na \(indexPath)")
+        performSegue(withIdentifier: "goToItems", sender: self)
+
+        tableView.reloadRows(at: [indexPath], with: .fade)
+
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! TodoListViewController
+        if let indexPath = tableView.indexPathForSelectedRow {
+            destinationVC.selectedCategory = categoryArray[indexPath.row]
+        }
     }
     
     //MARK: - TableView Delegate methods
@@ -51,8 +63,8 @@ class CategoryViewController: UITableViewController {
 
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var textField = UITextField()
-        let alert = UIAlertController(title: "Add new Todoyes category", message: "", preferredStyle: .alert)
-        let action = UIAlertAction(title: "Add new category", style: .default) { (action) in
+        let alert = UIAlertController(title: "Add new category", message: "", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Add", style: .default) { (action) in
             //what will happen once the user clicks the Add item button on UIAlert
             let newCategory = CategoryEntity(context: self.context)
             newCategory.name = textField.text!
