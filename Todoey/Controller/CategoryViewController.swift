@@ -7,11 +7,11 @@
 //
 
 import UIKit
-import CoreData
+//import SwipeCellKit
 import RealmSwift
 
 
-class CategoryViewController: UITableViewController {
+class CategoryViewController: SwipeTableViewController {
     
     let realm = try! Realm()
     var categories: Results<Category>?
@@ -22,6 +22,7 @@ class CategoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCategories()
+        tableView.rowHeight = 80
     }
     //MARK: - TableView Datasource methods
     //setup data source
@@ -30,15 +31,10 @@ class CategoryViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
-//        let category = categories[indexPath.row]
+
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         cell.textLabel?.text = categories?[indexPath.row].name ?? "no categories added yet"
-        
-        // cell.accessoryType = item.done ? .checkmark : .none
-        
-        //        same shit as this
-        //        if item.done == true { cell.accessoryType = .checkmark } else { cell.accessoryType = .none }
         
         return cell
     }
@@ -101,5 +97,24 @@ class CategoryViewController: UITableViewController {
         
         tableView.reloadData()
      }
+    
+    //MARK: - Delete data from swipe
+    
+    override func updateModel(at indexPath: IndexPath) {
+        if let categoryForDeletion = self.categories?[indexPath.row] {
+            do {
+                try self.realm.write {
+                    try self.realm.delete(categoryForDeletion)
+                }
+            } catch {
+                print("error deleting category \(error)")
+            }
+        } else {
+            print ("empty categories -> no deletion")
+        }
+    }
+    
 
 }
+
+

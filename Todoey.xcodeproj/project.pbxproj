@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4259795F20774E1200EDD634 /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4259795E20774E1200EDD634 /* SwipeTableViewController.swift */; };
 		4269022D2073D53F00C02CA3 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4269022C2073D53F00C02CA3 /* CategoryViewController.swift */; };
 		4297916A20753AD300DEB09E /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4297916920753AD300DEB09E /* Item.swift */; };
 		4297916C20753ADC00DEB09E /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4297916B20753ADC00DEB09E /* Category.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4259795E20774E1200EDD634 /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
 		4269022C2073D53F00C02CA3 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		4297916920753AD300DEB09E /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		4297916B20753ADC00DEB09E /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				4269022C2073D53F00C02CA3 /* CategoryViewController.swift */,
+				4259795E20774E1200EDD634 /* SwipeTableViewController.swift */,
 				42D5D5A5206AD1EB0088B3EA /* TodoListViewController.swift */,
 			);
 			path = Controller;
@@ -264,6 +267,7 @@
 				4269022D2073D53F00C02CA3 /* CategoryViewController.swift in Sources */,
 				42D5D5A6206AD1EB0088B3EA /* TodoListViewController.swift in Sources */,
 				42D5D5A4206AD1EB0088B3EA /* AppDelegate.swift in Sources */,
+				4259795F20774E1200EDD634 /* SwipeTableViewController.swift in Sources */,
 				4297916C20753ADC00DEB09E /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
