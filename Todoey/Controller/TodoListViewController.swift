@@ -14,6 +14,8 @@ class TodoListViewController: SwipeTableViewController {
     
     var todoItems: Results<Item>?
     var realm = try! Realm()
+    
+    @IBOutlet weak var searchBar: UISearchBar!
     var selectedCategory : Category? {
         didSet{
             loadItems()
@@ -27,10 +29,21 @@ class TodoListViewController: SwipeTableViewController {
         //print(defaults.array(forKey: "ToDoListArray") as? [String])
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         tableView.separatorStyle = .none
-        
-       // loadItems()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let colorHex = selectedCategory?.colorHex {
+            title = selectedCategory!.name
+            guard let navBar = navigationController?.navigationBar else {fatalError("holy fuck")}
 
+            if let navBarColor = UIColor(hexString: colorHex) {
+                navBar.barTintColor = navBarColor
+                navBar.tintColor = ContrastColorOf(navBarColor, returnFlat: true)
+                navBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: ContrastColorOf(navBarColor, returnFlat: true)]
+                searchBar.barTintColor = UIColor(hexString: colorHex)
+            }
+        }
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return todoItems?.count ?? 1
@@ -55,10 +68,10 @@ class TodoListViewController: SwipeTableViewController {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if let item = todoItems?[indexPath.row] {
             cell.textLabel?.text = item.title
-            let selectedCategoryColor = selectedCategory!.colorHex
+            let colorForItem = (CGFloat(indexPath.row) / CGFloat(todoItems!.count))*0.7
             
-            if let color = UIColor(hexString: selectedCategoryColor)!.darken(byPercentage: CGFloat(indexPath.row) / CGFloat(todoItems!.count)) {
-            // if let color = FlatWhite().darken(byPercentage: CGFloat(indexPath.row) / CGFloat(todoItems!.count)) {
+            
+            if let color = UIColor(hexString: selectedCategory!.colorHex)?.darken(byPercentage: colorForItem) {
                 
                 cell.backgroundColor = color
                 cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
